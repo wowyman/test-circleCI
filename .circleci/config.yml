@@ -2,6 +2,32 @@ version: 2.1
 orbs:
   ruby-rails-setup: later/ruby-rails-setup@0.0.3
 
+executors:
+  default:
+    docker:
+      # include node
+      - image: circleci/ruby:<< parameters.ruby_version >>
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_PATH: ./vendor/bundle
+          RAILS_ENV: test
+          DB_USERNAME: db_username
+          DB_NAME: test_database
+          DB_PASSWORD: ""
+      - image: circleci/postgres:<< parameters.psql_version >>
+        environment:
+          POSTGRES_USER: db_username
+          POSTGRES_DB: test_database
+          POSTGRES_PASSWORD: ""
+          POSTGRES_HOST_AUTH_METHOD: trust
+    parameters:
+      ruby_version:
+        type: string
+        default: 2.5.1-stretch-node
+      psql_version:
+        type: string
+        default: "9.6.16"
+
 jobs:
   build:
     docker:
@@ -20,7 +46,7 @@ jobs:
 
 workflows:
   version: 2
-  integration:
+  build-and-deploy:
     jobs:
       - build
       - rubocop:
