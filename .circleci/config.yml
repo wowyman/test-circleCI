@@ -14,7 +14,6 @@ jobs:
   rubocop:
     executor: default
     steps:
-      - configur_bundler
       - run:
           name: Rubocop
           command: bundle exec rubocop
