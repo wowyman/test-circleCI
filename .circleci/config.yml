@@ -36,7 +36,7 @@ jobs:
       - checkout
       - run:
           name: deploy app to heroku
-          command: git push https://dashboard.heroku.com/apps/young-refuge-82186 master
+          command: git push heroku master
   rubocop:
     executor: default
     steps:
