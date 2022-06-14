@@ -40,6 +40,7 @@ jobs:
       - checkout
       - configure_bundler
       - run: gem install rubocop
+      - run: bundle config set --local path 'vendor/cache'
       - run:
           name: Rubocop
           command: bundle exec rubocop
