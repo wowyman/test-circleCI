@@ -64,6 +64,7 @@ jobs:
           MYSQL_DATABASE: sample_app_test
     working_directory: ~/repo
     steps:
+      - run: bundle --version
       - run:
           name: Rubocop
           command: bundle exec rubocop
