@@ -53,3 +53,6 @@ workflows:
       - rubocop:
           requires:
             - build
+      - deploy:
+          requires:
+            - build
