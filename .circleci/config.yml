@@ -20,8 +20,7 @@ jobs:
     steps:
       - checkout
       - configure_bundler
-      - run: bundle config set --local path 'vendor/cache'
-      - run: bundle install
+      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       # - run:
       #     name: deploy app to heroku
