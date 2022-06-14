@@ -36,12 +36,22 @@ jobs:
       - image: circleci/ruby:3.0.0
     steps:
       - checkout
-      - ruby/install-deps
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run: gem install bundler
-      - run: bundle install
-      - run:
-          name: deploy app to heroku
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - run: yarn install
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      # - run:
+      #     name: deploy app to heroku
+      #     command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
   rubocop:
     docker:
       - image: circleci/ruby:2.6.7-node-browsers-legacy
