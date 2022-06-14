@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   ruby-rails-setup: later/ruby-rails-setup@0.0.3
-  ruby: circleci/ruby@1.1.0
 
 commands:
   configure_bundler:
@@ -27,7 +26,7 @@ jobs:
       #     command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
   rubocop:
     docker:
-      - image: circleci/ruby:2.6.7-node-browsers-legacy
+      - image: circleci/ruby:3.0.0-node-browsers-legacy
         environment:
           RAILS_ENV: test
           MYSQL_HOST: 127.0.0.1
