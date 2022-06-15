@@ -14,4 +14,4 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "young-refuge-82186" #Must be unique in Heroku
           heroku_email: "maicongdanh29012001@gmail.com"
-          # buildpack: "https://github.com/HashNuke/heroku-buildpack-elixir.git"
+          buildpack: "https://github.com/HashNuke/heroku-buildpack-elixir.git"
