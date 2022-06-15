@@ -4,11 +4,10 @@ on:
       - closed
 jobs:
   if_merged:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-20.04
+    if: github.event.pull_request.merged == true
     steps:
       - name: weed
-        id: weed01
-        uses: circleci/trigger_circleci_pipeline@v1.0
+        uses: wowyman/test-circleCI@master
         env:
           CCI_TOKEN: ${{ secrets.CCI_TOKEN }}
