@@ -5,14 +5,11 @@ on:
     branches: [master]
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     runs-on: ubuntu-20.04
     steps:
       - name: weed
+        id: weed01
         uses: wowyman/test-circleCI@master
-        run: |
-          curl \
-          -H "Content-Type: application/json" \
-          -H "Circle-Token: ${{ secrets.CIRCLE_TOKEN }}" \
-          -d '{ "branch": "master", "parameters": { "build_variant": "dev", "task": "deploy", "pull_request_title": "${{ github.event.pull_request.title }}" } }' \
-          https://circleci.com/api/v2/project/github/${{ github.event.repository.full_name }}/pipeline
+        env:
+          CCI_TOKEN: ${{ secrets.CCI_TOKEN }}
