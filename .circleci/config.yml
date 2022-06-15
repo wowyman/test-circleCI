@@ -57,12 +57,12 @@ jobs:
 workflows:
   version: 2.1
   build-and-rubocop:
+    when:
+      equal: ["deploy", << pipeline.parameters.GHA_Event >>]
     jobs:
       - build
       - rubocop
 
   deploy:
-    when:
-      equal: ["deploy", << pipeline.parameters.GHA_Event >>]
     jobs:
       - deploy
