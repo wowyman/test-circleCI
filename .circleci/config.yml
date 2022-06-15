@@ -1,4 +1,5 @@
 version: 2.1
+
 parameters:
   GHA_Event:
     type: string
@@ -32,7 +33,9 @@ jobs:
     steps:
       - checkout
       - configure_bundler
-
+      - run:
+          name: deploy app to heroku
+          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
       # - run:
       #     name: deploy app to heroku
       #     command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
@@ -54,13 +57,15 @@ jobs:
       - run:
           name: deploy app to heroku
           command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+
 workflows:
   version: 2.1
   # build-and-rubocop:
   #   jobs:
   #     - build
   #     - rubocop
+
   deploy:
-    when: << pipeline.parameters.GHA_Event >>
+    when: << pipeline.parameters.GHA_Action >>
     jobs:
       - deploy
