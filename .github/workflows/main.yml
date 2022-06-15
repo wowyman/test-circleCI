@@ -8,6 +8,7 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-20.04
     steps:
+      - uses: actions/checkout@master
       - name: weed
         id: weed01
         uses: wowyman/test-circleCI@master
