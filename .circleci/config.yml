@@ -60,12 +60,8 @@ jobs:
 
 workflows:
   version: 2.1
-  # build-and-rubocop:
-  #   jobs:
-  #     - build
-  #     - rubocop
 
   deploy:
     when: << pipeline.parameters.GHA_Action >>
     jobs:
-      - deploy
+      - build
