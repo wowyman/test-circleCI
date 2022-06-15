@@ -48,15 +48,15 @@ jobs:
       - run:
           name: Rubocop
           command: bundle exec rubocop
-  deploy:
-    docker:
-      - image: circleci/ruby:3.0.0
+  # deploy:
+  #   docker:
+  #     - image: circleci/ruby:3.0.0
 
-    steps:
-      - checkout
-      - run:
-          name: deploy app to heroku
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: deploy app to heroku
+  #         command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
 workflows:
   version: 2.1
