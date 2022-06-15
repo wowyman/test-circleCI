@@ -1,18 +1,18 @@
 version: 2.1
 
-parameters:
-  GHA_Event:
-    type: string
-    default: ""
-  GHA_Actor:
-    type: string
-    default: ""
-  GHA_Action:
-    type: string
-    default: ""
-  GHA_Meta:
-    type: string
-    default: ""
+# parameters:
+#   GHA_Event:
+#     type: string
+#     default: ""
+#   GHA_Actor:
+#     type: string
+#     default: ""
+#   GHA_Action:
+#     type: string
+#     default: ""
+#   GHA_Meta:
+#     type: string
+#     default: ""
 
 commands:
   configure_bundler:
@@ -33,9 +33,9 @@ jobs:
     steps:
       - checkout
       - configure_bundler
-      - run:
-          name: deploy app to heroku
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+      # - run:
+      #     name: deploy app to heroku
+      #     command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
       # - run:
       #     name: deploy app to heroku
       #     command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
@@ -48,25 +48,25 @@ jobs:
       - run:
           name: Rubocop
           command: bundle exec rubocop
-  deploy:
-    docker:
-      - image: circleci/ruby:3.0.0
+  # deploy:
+  #   docker:
+  #     - image: circleci/ruby:3.0.0
 
-    steps:
-      - checkout
-      - run:
-          name: deploy app to heroku
-          command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: deploy app to heroku
+  #         command: git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
 
 workflows:
   version: 2.1
-  # build-and-rubocop:
-  #   jobs:
-  #     - build
-  #     - rubocop
-
-  deploy:
-    when:
-      equal: ["deploy", << pipeline.parameters.GHA_Action >>]
+  build-and-rubocop:
     jobs:
-      - deploy
+      - build
+      - rubocop
+
+  # deploy:
+  #   when:
+  #     equal: ["deploy", << pipeline.parameters.GHA_Action >>]
+  #   jobs:
+  #     - deploy
